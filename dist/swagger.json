@@ -1,0 +1,236 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Linklab Teste",
+        "version": "1.0.0"
+    },
+    "schemes": ["http", "https"],
+    "paths": {
+        "/api/products": {
+            "get": {
+                "tags": ["Produtos"],
+                "summary": "Envia uma lista de Produtos",
+                "description": "Envia uma lista de Produtos de acordo com os parâmetros recebidos",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "schema": {
+                            "type": "string",
+                            "description": "Limite da quantidade de items por requisição",
+                            "example": "4"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "category",
+                        "schema": {
+                            "type": "string",
+                            "enum": ["HARDWARE", "CHEMICAL", "TOOL"],
+                            "description": "Filtrar por categoria de produto",
+                            "example": "HARDWARE"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductSchemaType"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": { "description": "Internal server error" }
+                }
+            },
+            "post": {
+                "tags": ["Produtos"],
+                "summary": "Cria um novo Produto",
+                "description": "Cria um novo Produto a partir dos dados recebidos",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductSchemaType"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductSchemaType"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/:id": {
+            "patch": {
+                "tags": ["Produtos"],
+                "summary": "Atualiza um Produto",
+                "description": "Atualiza um Produto de Id descrito na rota a partir dos dados recebidos",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "ID do Produto",
+                            "example": "657d4234118b9077e5d2sha2318"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateProductSchemaBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductSchemaType"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Produtos"],
+                "summary": "Remove um Produto",
+                "description": "Remove um Produto de Id descrito na rota",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "ID do Produto",
+                            "example": "657d4234118b9077e5d2sha2318"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Descrição da requisição",
+                                            "example": "Product successfully deleted."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ProductSchemaType": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "ID do Produto",
+                        "example": "657d4234118b9077e5d2sha2318"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Nome do Produto",
+                        "example": "Produto Químico"
+                    },
+                    "image_url": {
+                        "type": "string",
+                        "description": "URL da imagem do Produto",
+                        "example": "https://images.pexels.com/photos/5726706/pexels-photo-5726706.jpeg?auto=compress&cs=tinysrgb&w=2076&h=3691&dpr=1"
+                    },
+                    "value": {
+                        "type": "number",
+                        "description": "Valor (em Reais) do Produto",
+                        "example": 130
+                    },
+                    "score": {
+                        "type": "number",
+                        "description": "Nota do Produto",
+                        "example": 5.3
+                    },
+                    "categoria": {
+                        "type": "string",
+                        "description": "Categoria do Produto",
+                        "enum": ["HARDWARE", "CHEMICAL", "TOOL"],
+                        "example": "CHEMICAL"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "Data de Criação do Produto",
+                        "example": "2023-12-16T06:19:45.794Z"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "Data da última atualização do Produto",
+                        "example": "2023-12-16T06:19:45.794Z"
+                    }
+                }
+            },
+            "UpdateProductSchemaBody": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Nome do Produto",
+                        "example": "Produto Químico"
+                    },
+                    "image_url": {
+                        "type": "string",
+                        "description": "URL da imagem do Produto",
+                        "example": "https://images.pexels.com/photos/5726706/pexels-photo-5726706.jpeg?auto=compress&cs=tinysrgb&w=2076&h=3691&dpr=1"
+                    },
+                    "value": {
+                        "type": "number",
+                        "description": "Valor (em Reais) do Produto",
+                        "example": 130
+                    },
+                    "score": {
+                        "type": "number",
+                        "description": "Nota do Produto",
+                        "example": 5.3
+                    },
+                    "categoria": {
+                        "type": "string",
+                        "description": "Categoria do Produto",
+                        "enum": ["HARDWARE", "CHEMICAL", "TOOL"],
+                        "example": "CHEMICAL"
+                    }
+                }
+            }
+        }
+    }
+}
