@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductsController = void 0;
-const products_service_1 = require("./products.service");
 const library_1 = require("@prisma/client/runtime/library");
+const products_service_1 = require("./products.service");
 const productsService = new products_service_1.ProductsService();
 class ProductsController {
     listProductsHandler(req, res) {

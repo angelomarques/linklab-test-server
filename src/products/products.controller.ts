@@ -6,10 +6,9 @@ import {
   UpdateProductSchemaType,
 } from "./products.schema";
 
-import { ProductsService } from "./products.service";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { Delete, Get, Patch, Post, Route } from "tsoa";
 import { Product } from "@prisma/client";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { ProductsService } from "./products.service";
 
 const productsService = new ProductsService();
 
@@ -17,13 +16,13 @@ export class ProductsController {
   public async listProductsHandler(
     req: Request<{}, {}, {}, ListProductsSchemaType["query"]>,
     res: Response
-  ): Promise<Product[]|undefined> {
+  ): Promise<Product[] | undefined> {
     try {
       const queryParams = req.query;
       const products = await productsService.listProducts(queryParams);
 
       res.status(200).json(products);
-      return products
+      return products;
     } catch (err: any) {
       res.status(500).json(err.message);
     }

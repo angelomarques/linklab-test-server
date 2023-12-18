@@ -36,6 +36,7 @@ const swaggerDocument = __importStar(require("../swagger.json"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
+app.use((0, cors_1.default)());
 app.use("/api/products", products_router_1.productsRouter);
 const options = {
     definition: {
@@ -56,7 +57,6 @@ app.use("/", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.se
         tryItOutEnabled: false,
     },
 }));
-app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);

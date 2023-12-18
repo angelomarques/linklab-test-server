@@ -12,6 +12,7 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors());
 app.use("/api/products", productsRouter);
 
 const options = {
@@ -39,7 +40,6 @@ app.use(
   })
 );
 
-app.use(cors());
 app.use(express.json());
 
 app.listen(port, () => {
