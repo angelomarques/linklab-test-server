@@ -1,12 +1,15 @@
 # Linklab TestServer
 
+## Documentação
+https://linklab-test-server.onrender.com
+
 ## Pré-requisitos
 - Node.js instalado
 - npm (Node Package Manager) instalado
 
 ## Instalação
-1. Clone este repositório: `git clone https://github.com/seu-usuario/seu-projeto.git`
-2. Acesse o diretório do projeto: `cd seu-projeto`
+1. Clone este repositório: `git clone https://github.com/angelomarques/linklab-test-server`
+2. Acesse o diretório do projeto: `cd linklab-test-server`
 3. Instale as dependências: `npm install`
 
 ## Configuração
